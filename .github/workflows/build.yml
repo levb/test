@@ -31,6 +31,7 @@ jobs:
 
       - name: Generate coverage report
         run: |
+          mkdir -p coverage
           lcov --capture --directory . --output-file coverage/lcov.info
           lcov --list coverage/lcov.info
 
