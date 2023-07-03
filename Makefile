@@ -23,8 +23,9 @@ test: $(LIB_NAME) $(TEST_OBJ_FILES)
 	./test
 
 coverage: test
-	lcov --capture --directory . --output-file coverage.info
-	lcov --summary coverage.info
+	# lcov --capture --directory . --output-file coverage.info
+	# lcov --summary coverage.info
+	coveralls --gcov-options '\-lp' -r .
 
 clean:
 	rm -f $(LIB_NAME) $(OBJ_FILES) $(TEST_OBJ_FILES) test

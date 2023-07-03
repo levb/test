@@ -24,19 +24,27 @@ jobs:
         run: |
           make test
 
-      - name: Install lcov
-        run: |
-          sudo apt-get update
-          sudo apt-get install lcov
+      # - name: Install lcov
+      #   run: |
+      #     sudo apt-get update
+      #     sudo apt-get install lcov
 
-      - name: Generate coverage report
-        run: |
-          mkdir -p coverage
-          lcov --capture --directory . --output-file coverage/lcov.info
-          lcov --list coverage/lcov.info
+      # - name: Generate coverage report
+      #   run: |
+      #     mkdir -p coverage
+      #     lcov --capture --directory . --output-file coverage/lcov.info
+      #     lcov --list coverage/lcov.info
+
+      # - name: Upload coverage report
+      #   uses: coverallsapp/github-action@v2
+      #   with:
+      #     github-token: ${{ secrets.GITHUB_TOKEN }}
+      #     file: coverage/lcov.info
 
       - name: Upload coverage report
-        uses: coverallsapp/github-action@v2
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          file: coverage/lcov.info
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+        run: |
+          pip install --user cpp-coveralls
+          echo ">>>>>>> $COVERALLS_REPO_TOKEN <<<<<<<<"
+          coveralls --verbose --gcov-options '\-lp' -r .

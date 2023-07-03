@@ -3,4 +3,5 @@
 test
 *.gcda
 *.gcno
+*.c.gcov
 coverage
