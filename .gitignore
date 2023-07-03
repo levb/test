@@ -3,4 +3,4 @@
 test
 *.gcda
 *.gcno
-coverage.info
+coverage

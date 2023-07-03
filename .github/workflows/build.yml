@@ -31,11 +31,11 @@ jobs:
 
       - name: Generate coverage report
         run: |
-          lcov --capture --directory . --output-file coverage.info
-          lcov --list coverage.info
+          lcov --capture --directory . --output-file coverage/lcov.info
+          lcov --list coverage/lcov.info
 
       - name: Upload coverage report
         uses: coverallsapp/github-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          file: coverage.info
+          file: coverage/lcov.info
