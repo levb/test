@@ -1,0 +1,38 @@
+name: Build and Test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Build
+        run: |
+          make
+
+      - name: Run tests
+        run: |
+          make test
+
+      - name: Install lcov
+        run: |
+          sudo apt-get update
+          sudo apt-get install lcov
+
+      - name: Generate coverage report
+        run: |
+          lcov --capture --directory . --output-file coverage.info
+          lcov --list coverage.info
+
+      - name: Upload coverage report
+        uses: coverallsapp/github-action@v2
